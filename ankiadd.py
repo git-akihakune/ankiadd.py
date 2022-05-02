@@ -35,7 +35,11 @@ class Card:
         import requests
 
         endpoint = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
-        json_data = requests.get(endpoint).json()[0]
+        try:
+            json_data = requests.get(endpoint).json()[0]
+        except KeyError:
+            print(f"ERROR: No dictionary data found for '{word}', stopping script...")
+            exit()
 
         return json_data
 
